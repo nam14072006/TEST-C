@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class SinhVien {
@@ -36,29 +35,47 @@ public class SinhVien {
     public void setLop(String lop) { this.lop = lop; }
 
     public float getDiem1() { return diem1; }
-    public void setDiem1(float d1) { diem1 = d1; }
+    public void setDiem1(float d1) { this.diem1 = d1; }
 
     public float getDiem2() { return diem2; }
-    public void setDiem2(float d2) { diem2 = d2; }
+    public void setDiem2(float d2) { this.diem2 = d2; }
 
     public float getDiem3() { return diem3; }
-    public void setDiem3(float d3) { diem3 = d3; }
+    public void setDiem3(float d3) { this.diem3 = d3; }
 
     // Hàm nhập
     public void nhap(Scanner sc) {
         System.out.print("Nhập mã số sinh viên: ");
         mssv = sc.nextLine();
+
         System.out.print("Nhập họ tên sinh viên: ");
         hoten = sc.nextLine();
+
         System.out.print("Nhập lớp của sinh viên: ");
         lop = sc.nextLine();
-        System.out.print("Nhập điểm 1 của sinh viên: ");
-        diem1 = sc.nextFloat();
-        System.out.print("Nhập điểm 2 của sinh viên: ");
-        diem2 = sc.nextFloat();
-        System.out.print("Nhập điểm 3 của sinh viên: ");
-        diem3 = sc.nextFloat();
-        sc.nextLine(); // bỏ dòng thừa
+
+        diem1 = nhapDiem(sc, "Nhập điểm 1 của sinh viên (0–10): ");
+        diem2 = nhapDiem(sc, "Nhập điểm 2 của sinh viên (0–10): ");
+        diem3 = nhapDiem(sc, "Nhập điểm 3 của sinh viên (0–10): ");
+    }
+
+    // Hàm nhập điểm (có kiểm tra hợp lệ)
+    private float nhapDiem(Scanner sc, String message) {
+        float diem;
+        do {
+            System.out.print(message);
+            while (!sc.hasNextFloat()) {
+                System.out.println("Vui lòng nhập số!");
+                sc.next(); // bỏ giá trị sai
+                System.out.print(message);
+            }
+            diem = sc.nextFloat();
+            sc.nextLine(); // bỏ dòng thừa
+            if (diem < 0 || diem > 10) {
+                System.out.println("Điểm không hợp lệ! Vui lòng nhập trong khoảng 0–10.");
+            }
+        } while (diem < 0 || diem > 10);
+        return diem;
     }
 
     // Hàm xuất
